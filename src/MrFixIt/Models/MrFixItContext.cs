@@ -15,8 +15,9 @@ namespace MrFixIt.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MrFixIt;integrated security=True");
+            options.UseSqlServer(@"Server=DESKTOP-GC3DC7B\SQLEXPRESS;Database=MrFixIt;integrated security=True");
         }
+        
 
         public MrFixItContext(DbContextOptions<MrFixItContext> options)
             : base(options)
