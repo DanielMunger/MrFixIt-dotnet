@@ -3,6 +3,27 @@
 *@
 @{
 }
+<script>
+    $(document).ready(function () {
+        $('.pending-job').click(function () {
+            var id = $("input[type='checkbox']").val();
+            console.log(id);
+            $.ajax({
+                type: 'GET',
+                data: { 'id': id },
+                dataType: 'html',
+                url: '@Url.Action("PendingJob", "Workers")',
+                success: function (result) {
+                    alert("holy shit it worked");
+
+                }
+
+            });
+
+        });
+
+    });
+</script>
         <h4 class="text-center">Hello Worker @Model.FirstName @Model.LastName. You are Logged In</h4>
 
 @if (User.Identity.IsAuthenticated)
@@ -13,16 +34,18 @@
             <h3>All Jobs:</h3>
             @foreach (var Job in Model.Jobs)
             {
-                <h3>@Job.Title</h3>
-                <form asp-action="PendingJob" asp-controller="Workers">
-                    <label>Working On?</label>
-                    <input type="checkbox" value="3">
-                </form>
-                <form asp-action="Completed" asp-controller="Workers">
-                    <label>Completed?</label>
-                    <input type="checkbox" value="3">
-                </form>
-                
+                <div id="@Job.JobId">
+                    <h3>@Job.Title</h3>
+                   
+                        <label>Working On?</label>
+                        <input type="hidden" value="3" name="id"/>
+                        <input class="pending-job" type="checkbox" value="@Job.JobId">
+                       
+                    <form asp-action="Completed" asp-controller="Workers">
+                        <label>Completed?</label>
+                        <input class="completed-job" type="checkbox" value="3">
+                    </form>
+                </div>
 
             }
         </div>
@@ -30,23 +53,26 @@
             <h3>Jobs You're Working On:</h3>
             @foreach (var Job in Model.Jobs)
             {
-                @if(Job.Pending == true)
-                {
-                <h3>@Job.Title</h3>
-               
-                }
+                <div>
+                    @if (Job.Pending == true)
+                    {
+                        <h3>@Job.Title</h3>
 
+                    }
+                </div>
             }
         </div>
         <div class="col-md-4">
             <h3>Jobs You've Completed</h3>
             @foreach (var Job in Model.Jobs)
             {
-                @if (Job.Completed == true)
-                {
-                    <h3>@Job.Title</h3>
+                <div>
+                    @if (Job.Completed == true)
+                    {
+                        <h3>@Job.Title</h3>
 
-                }
+                    }
+                </div>
             }
         </div>
 
