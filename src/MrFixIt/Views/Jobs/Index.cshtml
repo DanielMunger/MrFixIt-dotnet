@@ -3,22 +3,22 @@
 *@
 @{
 }
-@*<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>*@
-
+        crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $("form").submit(function (event) {
             event.preventDefault();
             console.log("does this work?")
+           
              $.ajax({
                 type: 'POST',
                 data: $(this).serialize(),
                 url: '@Url.Action("Claim")',
-                dataType: 'json',
+                dataType: 'html',
                 success: function (result) {
-                    console.log("ajax kinda works");
+                    alert("You have claimed this Job!");
                 }
             });
         });
@@ -29,6 +29,10 @@
     <h3>Our Current Jobs</h3>
     @Html.ActionLink("Add a new job", "Create")
 </div>
+    @{
+        int jobCount = 0;
+    }
+
 @foreach (var Job in Model)
 {
     <div class="row">
@@ -36,7 +40,7 @@
             
                 <p>@Job.Title</p>
                 <ul>
-                    <p>@Job.Description</p>
+                    <li>@Job.Description</li>
                 </ul>
                 @if (Job.Worker == null)
                 {
@@ -57,83 +61,10 @@
 
 
         <div class="col md6">
-            <div id="job-claim-view"></div>
+            should be here
+            <div id="@Job.JobId"></div>
         </div>
     </div>
   </div>
     <hr />
 }
-
-
-@*<form id="myform">
-    for (int i = 0; i < Model.ListRoles.Count(); i++)
-            {
-        <label style="display:block">
-            Html.CheckBoxFor(model => model.ListRoles[i].Selected)
-            Html.HiddenFor(model => model.ListRoles[i].Id)
-            Html.LabelFor(model => model.ListRoles[i].RoleName, Model.ListRoles[i].RoleName)
-        </label>
-    }
-</form>
-$.ajax({
-                        type: "POST",
-                        url: "Url.Action("Edit", "User")",
-                        data: $("#myFormId").serialize(),
-
-                        success: function (result) {
-                        alert('Update successful !');
-                        },
-                        });
-
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
- $(function () {
-        $("form").submit(function (event) {
-            event.preventDefault();
-            console.log($(this).serialize());
-            $.ajax({
-                type: 'POST',
-                url: 'Url.Action("Claim")',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result);
-                    var target = "job" + result.jobId;
-                    $("#" + target).html("this job is claimed by " + result.worker.firstName + " " + result.worker.lastName);
-                }
-            })
-        })
-
-    })
-</script>
-
-<div class="text-center">
-    <h3>Our Current Jobs</h3>
-    Html.ActionLink("Add a new job", "Create")
-</div>
-foreach (Job job in Model)
-{
-    string buttonId = $"job{job.JobId}";
-    <ul>
-        <li>job.Title</li>
-        <li>
-            <ul>
-                <li>job.Description</li>
-            </ul>
-        </li>
-        if (job.Worker == null)
-        {
-            <li class="btn" id="buttonId">
-                This job is unclaimed.
-                <form method="post" asp-controller="jobs" asp-action="Claim">
-                    <input type="hidden" name="jobId" value="job.JobId" />
-                    <button class="btn">Claim this job</button>
-                </form>
-            </li>
-        }
-        else
-        {
-            <li class="btn" id="buttonId">This job is claimed by job.Worker.FirstName job.Worker.LastName</li>
-
-        }
-    </ul>
-    <hr />*@

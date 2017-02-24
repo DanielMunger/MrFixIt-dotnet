@@ -4,6 +4,7 @@
 @{
 }
         <h4 class="text-center">Hello Worker @Model.FirstName @Model.LastName. You are Logged In</h4>
+<form asp-action="PendingJob" asp-controller="Workers"><input type="checkbox" value="5"></form>
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -13,16 +14,7 @@
             <h3>All Jobs:</h3>
             @foreach (var Job in Model.Jobs)
             {
-                <h3>@Job.Title</h3>
-                <form asp-action="PendingJob" asp-controller="Workers">
-                    <label>Working On?</label>
-                    <input type="checkbox" value="3">
-                </form>
-                <form asp-action="Completed" asp-controller="Workers">
-                    <label>Completed?</label>
-                    <input type="checkbox" value="3">
-                </form>
-                
+                <h5>@Job.Title</h5>
 
             }
         </div>
@@ -32,8 +24,7 @@
             {
                 @if(Job.Pending == true)
                 {
-                <h3>@Job.Title</h3>
-               
+                <h5>@Job.Title</h5>
                 }
 
             }
@@ -44,15 +35,14 @@
             {
                 @if (Job.Completed == true)
                 {
-                    <h3>@Job.Title</h3>
-
+                    <h5>@Job.Title</h5>
                 }
             }
         </div>
 
         @if (Model.Avaliable)
         {
-            //<h2>Please @Html.ActionLink("select a job", "Index", "Jobs").</h2>
+            <h2>Please @Html.ActionLink("select a job", "Index", "Jobs").</h2>
         }
         else
         {
