@@ -32,13 +32,14 @@ namespace MrFixIt.Controllers
         {
             return View();
         }
-        public IActionResult PendingJob(int id)
+        public IActionResult PendingJob(int jobId)
         {
-            Debug.WriteLine("job id " + id);
-            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == id);
+            Debug.WriteLine("job id " + jobId);
+            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == jobId);
+            Debug.WriteLine("selectedJob " + selectedJob.Description);
             selectedJob.Pending = true;
             db.SaveChanges();
-            return View(db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name));
+            return Json(db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name));
         }
 
         [HttpPost]

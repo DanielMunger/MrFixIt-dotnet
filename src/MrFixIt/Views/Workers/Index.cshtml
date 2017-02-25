@@ -3,18 +3,34 @@
 *@
 @{
 }
+ @*$("form").submit(function (event) {
+            event.preventDefault();
+            console.log("does this work?")
+
+$.ajax({
+   url: "/Home/jQueryAddComment",
+   type: "POST",
+   dataType: "html",
+   data: json,
+   success: function(data){
+      //var message = data.Message;
+      alert(data);
+      $('.CommentSection').html(data);
+   }
+}*@
 <script>
     $(document).ready(function () {
-        $('.pending-job').click(function () {
-            var id = $("input[type='checkbox']").val();
-            console.log(id);
+        $('form').submit(function (event) {
+            event.preventDefault();
+            console.log("does this work?");        
             $.ajax({
                 type: 'GET',
-                data: { 'id': id },
-                dataType: 'html',
+                data: $(this).serialize(),
+                dataType: 'json',
                 url: '@Url.Action("PendingJob", "Workers")',
                 success: function (result) {
-                    alert("holy shit it worked");
+                    console.log("why am i not getting here>?");
+                    alert("working ajax");
 
                 }
 
@@ -38,14 +54,16 @@
                     <h3>@Job.Title</h3>
                    
                         <label>Working On?</label>
-                        <input type="hidden" value="3" name="id"/>
-                        <input class="pending-job" type="checkbox" value="@Job.JobId">
-                       
+                        <h5>Job id: @Job.JobId</h5>
                     <form asp-action="Completed" asp-controller="Workers">
-                        <label>Completed?</label>
-                        <input class="completed-job" type="checkbox" value="3">
+                        <input type="hidden" name="jobId" value="@Job.JobId">
+                        <button type="submit" class="btn">Currently Working On</button>
                     </form>
-                </div>
+                    <form asp-action="Completed" asp-controller="Workers">
+                        <input type="hidden" name="jobId" value="@Job.JobId">
+                        <button class="btn" type="submit">Job Completed</button>
+                    </form>
+</div>
 
             }
         </div>
