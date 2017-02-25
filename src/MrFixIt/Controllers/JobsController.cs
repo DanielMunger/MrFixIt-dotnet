@@ -38,9 +38,7 @@ namespace MrFixIt.Controllers
         public IActionResult Claim(int id)
         {
             Job job = db.Jobs.FirstOrDefault(j => j.JobId == id);
-            Debug.WriteLine("jobId: "+ job.JobId);
             job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
-            Debug.WriteLine("worker name"+job.Worker.FirstName);
             db.Entry(job).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

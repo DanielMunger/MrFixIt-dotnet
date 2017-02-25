@@ -33,22 +33,18 @@ namespace MrFixIt.Controllers
             return View();
         }
         public IActionResult PendingJob(int jobId)
-        {
-            Debug.WriteLine("job id " + jobId);
-            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == jobId);
-            Debug.WriteLine("selectedJob " + selectedJob.Description);
+        {         
+            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == jobId);        
             selectedJob.Pending = true;
             db.SaveChanges();
             return Json(selectedJob);
         }
         public IActionResult CompletedJob(int jobId)
-        {
-            Debug.WriteLine("job id " + jobId);
-            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == jobId);
-            Debug.WriteLine("selectedJob " + selectedJob.Description);
-            selectedJob.Pending = true;
+        {         
+            var selectedJob = db.Jobs.FirstOrDefault(j => j.JobId == jobId);           
+            selectedJob.Completed = true;
             db.SaveChanges();
-            return Json(db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name));
+            return Json(selectedJob);
         }
 
         [HttpPost]

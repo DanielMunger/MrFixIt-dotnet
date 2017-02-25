@@ -11,8 +11,6 @@
     $(document).ready(function () {
         $("form").submit(function (event) {
             event.preventDefault();
-            console.log("does this work?")
-           
              $.ajax({
                 type: 'POST',
                 data: $(this).serialize(),
@@ -47,19 +45,14 @@
                         <form method="post" asp-controller="Jobs" asp-action="Claim">
                             <input type="hidden" value="@Job.JobId" name="jobId"/>
                             <button type="submit" class="btn info" name="jobclaimbutton" value="">Claim This Job</button>
-                     
                         </form>
                     }
                     else
                     {
                         <p class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</p>
-
                     }
                 }
-
-
-        <div class="col md6">
-            should be here
+        <div class="col md6">         
             <div id="@Job.JobId"></div>
         </div>
     </div>
