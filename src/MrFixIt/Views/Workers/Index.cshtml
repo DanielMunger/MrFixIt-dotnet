@@ -14,7 +14,6 @@
                 dataType: 'json',
                 url: '@Url.Action("PendingJob", "Workers")',
                 success: function (result) {
-                    console.log(result.title);
                     var stringResult = '<h3>' + result.title +'</h3>' ;
                     $('#pending-job').append(stringResult);
                 }
@@ -53,8 +52,8 @@
                         {
                             <h4>Working On?</h4>
                             <form class="pending-job-submit" asp-action="Completed" asp-controller="Workers">
-                            <input type="hidden" name="jobId" value="@Job.JobId"> 
-                            <button type="submit" class="btn">Currently Working On</button>
+                                <input type="hidden" name="jobId" value="@Job.JobId"> 
+                                <button type="submit" class="btn">Currently Working On</button>
                             </form>
                         }
                        @if(@Job.Completed == false)
