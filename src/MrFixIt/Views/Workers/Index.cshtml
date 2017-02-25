@@ -3,41 +3,23 @@
 *@
 @{
 }
- @*$("form").submit(function (event) {
-            event.preventDefault();
-            console.log("does this work?")
 
-$.ajax({
-   url: "/Home/jQueryAddComment",
-   type: "POST",
-   dataType: "html",
-   data: json,
-   success: function(data){
-      //var message = data.Message;
-      alert(data);
-      $('.CommentSection').html(data);
-   }
-}*@
 <script>
     $(document).ready(function () {
         $('form').submit(function (event) {
-            event.preventDefault();
-            console.log("does this work?");        
+            event.preventDefault();          
             $.ajax({
                 type: 'GET',
                 data: $(this).serialize(),
                 dataType: 'json',
                 url: '@Url.Action("PendingJob", "Workers")',
                 success: function (result) {
-                    console.log("why am i not getting here>?");
-                    alert("working ajax");
-
+                    console.log(result.title);
+                    var stringResult = '<h3>' + result.title +'</h3>' ;
+                    $('#pending-job').append(stringResult);
                 }
-
             });
-
         });
-
     });
 </script>
         <h4 class="text-center">Hello Worker @Model.FirstName @Model.LastName. You are Logged In</h4>
@@ -53,12 +35,14 @@ $.ajax({
                 <div id="@Job.JobId">
                     <h3>@Job.Title</h3>
                    
-                        <label>Working On?</label>
-                        <h5>Job id: @Job.JobId</h5>
-                    <form asp-action="Completed" asp-controller="Workers">
-                        <input type="hidden" name="jobId" value="@Job.JobId">
-                        <button type="submit" class="btn">Currently Working On</button>
-                    </form>
+                       @if (@Job.Pending == false)
+                        {
+                            <label>Working On?</label>
+                            <form asp-action="Completed" asp-controller="Workers">
+                            <input type="hidden" name="jobId" value="@Job.JobId"> 
+                            <button type="submit" class="btn">Currently Working On</button>
+                            </form>
+                        }
                     <form asp-action="Completed" asp-controller="Workers">
                         <input type="hidden" name="jobId" value="@Job.JobId">
                         <button class="btn" type="submit">Job Completed</button>
@@ -71,7 +55,7 @@ $.ajax({
             <h3>Jobs You're Working On:</h3>
             @foreach (var Job in Model.Jobs)
             {
-                <div>
+                <div id="pending-job">
                     @if (Job.Pending == true)
                     {
                         <h3>@Job.Title</h3>
