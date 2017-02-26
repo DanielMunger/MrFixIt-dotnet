@@ -1,11 +1,11 @@
-### Mr Fix-It
-#### A repair technician job service.
-#### By: Daniel Munger
-## Description
+## Mr Fix-It
 
-_{}_
+### By: Daniel Munger
+### Description
 
-COMPLETED USER STORIES:
+_{# A repair technician job service. User may post jobs to site, and create worker accounts to claim jobs.}_
+
+###COMPLETED USER STORIES:
 * Users can register and log on
 * Users may sign up to be "workers" on the site.
 * New jobs may be added to the jobs list.
@@ -15,7 +15,7 @@ COMPLETED USER STORIES:
 * A worker may designate one **active** job at a time. **AJAX**
 * Workers may mark jobs complete, and select a new active job. **AJAX**
 
-## Setup/Installation Requirements
+### Setup/Installation Requirements
 
   * _Clone this program from my GitHub: https://github.com/DanielMunger/MrFixIt-dotnet
   * _Navigate into cloned project folder
@@ -30,11 +30,11 @@ COMPLETED USER STORIES:
   * _In Visual Studio launch IIS Express. 
   * _Follow website instructions_
 
-## Known Bugs
+### Known Bugs
 
 _{Routes to 'Job/Index' and 'Home/Index' do not work for users that are not workers/not logged in.}_
 
-## Technologies Used
+### Technologies Used
 
 _{Written using Visual Studio in C# on the ASP.Net Core Framework, complied with MicroSoft PowerShell, uses Microsoft SQl Server Management Studio and Jquery}_
 
