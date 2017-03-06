@@ -32,7 +32,7 @@ _{# A repair technician job service. User may post jobs to site, and create work
 
 ### Known Bugs
 
-_{Routes to 'Job/Index' and 'Home/Index' do not work for users that are not workers/not logged in.}_
+_{No known bugs}_
 
 ### Technologies Used
 
